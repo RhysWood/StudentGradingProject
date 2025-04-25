@@ -3,7 +3,7 @@
 #include <string>
 #include <limits>
 #include <vector>
-#include <algorithm> //for std::short
+#include <algorithm> //for std::sort
 
 int main()
 {
@@ -18,6 +18,7 @@ int main()
     int pass = 0;
     std::string winner;
 
+    std::vector<Student> students;
 
     //Ask for number of students
     std::cout << "Please Specify number of students: ";
@@ -48,22 +49,27 @@ int main()
         if (score < 50) {
             std::cout << studentName << " failed.\n";
             fails += 1;
+            students.push_back({ studentName, score });
         }
         else if (score < 60) {
             std::cout << studentName << " got a C.\n";
             pass += 1;
+            students.push_back({ studentName, score });
         }
         else if (score < 70) {
             std::cout << studentName << " got a B.\n";
             pass += 1;
+            students.push_back({ studentName, score });
         }
         else if (score < 80) {
             std::cout << studentName << " got an A.\n";
             pass += 1;
+            students.push_back({ studentName, score });
         }
         else {
             std::cout << studentName << " got an A*.\n";
             pass += 1;
+            students.push_back({ studentName, score });
         }
         // Clear newline after entering score, in case we use getline again
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -72,5 +78,9 @@ int main()
     std::cout << "The class average is " << (totalScore / numberOfStudents) << "\n";
     std::cout << fails << " people failed, while " << pass << " people passed.\n";
     std::cout << "The highest score was " << highScore << " from " << winner << "!";
+    std::cout << "\n LEADERBOARD \n";
+    for (int i = 0; i < students.size(); i++) {
+        std::cout << i + 1 << ". " << students[i].name << " - " << students[i].score << " \n";
+    }
     return 0;
 }
